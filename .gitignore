@@ -15,7 +15,6 @@ build/
 *.pak
 *.yaml
 *.stamp*
-*.txt
 *.json
 *.dir/
 *.filters
