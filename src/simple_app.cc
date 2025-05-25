@@ -28,7 +28,7 @@ void SimpleApp::OnContextInitialized()
 
     CefRefPtr<SimpleHandler> handler(new SimpleHandler());
 
-    std::string url = "https://www.google.com";
+    std::string url = "https://www.baidu.com";
     
     CefBrowserSettings browser_settings;
 
