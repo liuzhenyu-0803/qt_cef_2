@@ -56,10 +56,6 @@ CMakeCache.txt
 cmake_install.cmake
 *.ipynb_checkpoints/
 
-# 忽略 CEF 相关二进制和依赖
-libs/cef/bin/
-libs/cef/lib/
-
 # 忽略本地设置
 *.vscode/
 *.idea/
