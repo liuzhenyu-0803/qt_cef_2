@@ -1,43 +1,59 @@
-#include "include/cef_command_line.h"
-#include "simple_app.h"
+#include "app.h"
+#include "main_window.h"
 
-/*
- * 所有进程的入口函数。
- */
-int main(int &argc, char *argv[])
+#include "cef/cef_global_define.h"
+
+#include "cef/cef_app_browser.h"
+#include "cef/cef_app_render.h"
+
+#include <QtWidgets/QApplication>
+
+
+int main(int argc, char* argv[])
 {
-  // 向 CEF 提供命令行参数。
-  HINSTANCE hInstance = GetModuleHandle(nullptr);
-  CefMainArgs main_args(hInstance);
+    CefMainArgs main_args(GetModuleHandle(nullptr));
 
-  // CEF 应用包含多个子进程（渲染、GPU 等），共用同一可执行文件。
-  // 此函数检查命令行参数，如果是子进程则执行相应逻辑。
-  int exit_code = CefExecuteProcess(main_args, nullptr, nullptr);
-  if (exit_code >= 0)
-  {
-    // 子进程已完成，直接返回。
-    return exit_code;
-  }
+    CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+    command_line->InitFromString(::GetCommandLineW());
 
-  // 在此处指定 CEF 全局设置。
-  CefSettings settings;
-  settings.no_sandbox = true;
+    CefRefPtr<CefApp> app;
+    switch (CefAppBase::GetProcessType(command_line))
+    {
+    case CefAppBase::BrowserProcess:
+        app = new ClientAppBrowser();
+        break;
+    case CefAppBase::RendererProcess:
+        app = new ClientAppRender();
+        break;
+    default:
+        break;
+    }
 
-  // SimpleApp 实现了浏览器进程的应用级回调。
-  // 在 CEF 初始化后，会在 OnContextInitialized() 中创建第一个浏览器实例。
-  CefRefPtr<SimpleApp> app(new SimpleApp);
+    int exit_code = CefExecuteProcess(main_args, app, nullptr);
+    if (exit_code >= 0)
+    {
+        return exit_code;
+    }
 
-  // 初始化 CEF 浏览器进程。如果初始化失败或需要提前退出（如进程单例重启），则返回 false。
-  if (!CefInitialize(main_args, settings, app.get(), nullptr))
-  {
-    return CefGetExitCode();
-  }
+    CefSettings settings;
+    settings.multi_threaded_message_loop = true;
 
-  // 运行 CEF 消息循环，直到调用 CefQuitMessageLoop() 前会一直阻塞。
-  CefRunMessageLoop();
+    if (!CefInitialize(main_args, settings, app.get(), nullptr))
+    {
+        return CefGetExitCode();
+    }
 
-  // 关闭 CEF。
-  CefShutdown();
+    RegisterCefMetaType();
 
-  return 0;
+    QApplication::setQuitOnLastWindowClosed(false);
+
+    App a(argc, argv);
+    MainWindow w;
+    w.resize(1600, 1200);
+    w.show();
+    a.exec();
+
+    CefShutdown();
+
+    return 0;
 }
