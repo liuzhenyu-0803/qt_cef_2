@@ -1,15 +1,13 @@
-#ifndef CEF_APP_RENDER_H_
-#define CEF_APP_RENDER_H_
+#ifndef QCEFAPPRENDER_H_
+#define QCEFAPPRENDER_H_
 
-
-#include "cef_app_base.h"
+#include "QCefApp.h"
 #include "include/wrapper/cef_message_router.h"
 
-
-class ClientAppRender : public CefAppBase, public CefRenderProcessHandler 
+class QCefAppRender : public QCefApp, public CefRenderProcessHandler 
 {
 public:
-    ClientAppRender();
+    QCefAppRender();
 
 	CefRefPtr<CefRenderProcessHandler> GetRenderProcessHandler() override 
 	{
@@ -39,8 +37,7 @@ private:
 
 	CefRefPtr<CefMessageRouterRendererSide> m_message_router;
 
-    IMPLEMENT_REFCOUNTING(ClientAppRender);
+    IMPLEMENT_REFCOUNTING(QCefAppRender);
 };
 
-
-#endif  // CEF_APP_RENDER_H_
+#endif  // QCEFAPPRENDER_H_

@@ -7,7 +7,7 @@
 #include <QtWidgets/QWidget>
 
 
-class CefViewWidget;
+class QCefWidget;
 
 class MainWindow : public QWidget
 {
@@ -23,7 +23,7 @@ protected:
 private:
     Ui::MainWindowClass ui_;
 
-    CefViewWidget *cef_view_widget_;
+    QCefWidget *cef_view_widget_;
 };
 
 

@@ -1,15 +1,12 @@
-#ifndef CEF_CLIENT_BASE_H
-#define CEF_CLIENT_BASE_H
-
+#ifndef QCEFCLIENT_H
+#define QCEFCLIENT_H
 
 #include <QObject>
 #include <QVariant>
 #include <list>
-
 #include "include/cef_client.h"
 
-
-class CefClientBase :
+class QCefClient :
     public QObject,
     public CefClient,
     public CefLifeSpanHandler,
@@ -24,26 +21,22 @@ signals:
     void SignalOnBeforeClose(CefRefPtr<CefBrowser> browser);
 
 public:
-    CefClientBase();
-    ~CefClientBase();
+    QCefClient();
+    ~QCefClient();
 
     CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() override 
     {
         return this;
     }
-
     CefRefPtr<CefKeyboardHandler> GetKeyboardHandler() override
     {
         return this;
     }
-
     virtual bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
         CefRefPtr<CefFrame> frame,
         CefProcessId source_process,
         CefRefPtr<CefProcessMessage> message) override;
-
     void OnAfterCreated(CefRefPtr<CefBrowser> browser) override;
-    
     bool OnBeforePopup(CefRefPtr<CefBrowser> browser,
         CefRefPtr<CefFrame> frame,
         int popup_id,
@@ -57,18 +50,12 @@ public:
         CefBrowserSettings &settings,
         CefRefPtr<CefDictionaryValue> &extra_info,
         bool *no_javascript_access) override;
-
     bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
         const CefKeyEvent &event,
         CefEventHandle os_event,
         bool *is_keyboard_shortcut) override;
-
 private:
-    //CefRefPtr<CefMessageRouterBrowserSide> m_message_router;
-    //std::unique_ptr<CefMessageRouterBrowserSide::Handler> m_message_handler;
-
-    IMPLEMENT_REFCOUNTING(CefClientBase);
+    IMPLEMENT_REFCOUNTING(QCefClient);
 };
 
-
-#endif  // CEF_CLIENT_BASE_H
+#endif  // QCEFCLIENT_H

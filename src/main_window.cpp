@@ -1,6 +1,6 @@
 #include "main_window.h"
 
-#include "cef/cef_view_widget.h"
+#include "cef/QCefWidget.h"
 #include "app.h"
 
 #include <QVBoxLayout>
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    cef_view_widget_ = new CefViewWidget(this);
+    cef_view_widget_ = new QCefWidget(this);
     layout->addWidget(cef_view_widget_);
 
     auto call_js_function_button = new QPushButton("call js function", this);
