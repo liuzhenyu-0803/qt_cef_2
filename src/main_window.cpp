@@ -1,6 +1,6 @@
 #include "main_window.h"
 
-#include "cef/QCefWidget.h"
+#include "cef/q_cef_widget.h"
 #include "app.h"
 
 #include <QVBoxLayout>
@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    cef_view_widget_ = new QCefWidget(this);
-    layout->addWidget(cef_view_widget_);
+    cef_widget_ = new QCefWidget(this);
+    layout->addWidget(cef_widget_);
 
     auto call_js_function_button = new QPushButton("call js function", this);
     layout->addWidget(call_js_function_button);
@@ -27,11 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(delete_cef_view_button);
 
     connect(call_js_function_button, &QPushButton::clicked, [=]() {
-        cef_view_widget_->CallJsFunction("test", "Hello from C++");
+        cef_widget_->callJsFunction("test", "Hello from C++");
     });
 
     connect(delete_cef_view_button, &QPushButton::clicked, [=]() {
-        delete cef_view_widget_;
+        cef_widget_->deleteLater();
     });
 }
 
@@ -42,5 +42,5 @@ void MainWindow::closeEvent(QCloseEvent * event)
 {
     QWidget::closeEvent(event);
 
-    qobject_cast<App *>(qApp)->Quit();
+    qobject_cast<App *>(qApp)->quit();
 }

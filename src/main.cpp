@@ -1,20 +1,17 @@
 #include "app.h"
 #include "main_window.h"
 
-#include "cef/QCefGlobalDefine.h"
+#include "cef/q_cef_global_define.h"
 
-#include "cef/QCefAppBrowser.h"
-#include "cef/QCefAppRender.h"
-
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
 
 int main(int argc, char* argv[])
 {
-    int exit_code = InitializeCef();
-    if (exit_code >= 0)
+    int exitCode = initializeCef();
+    if (exitCode >= 0)
     {
-        return exit_code;
+        return exitCode;
     }
 
     QApplication::setQuitOnLastWindowClosed(false);
@@ -25,7 +22,7 @@ int main(int argc, char* argv[])
     w.show();
     a.exec();
 
-    UninitializeCef();
+    uninitializeCef();
 
     return 0;
 }

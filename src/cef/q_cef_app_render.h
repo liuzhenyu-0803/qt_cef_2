@@ -1,7 +1,7 @@
 #ifndef QCEFAPPRENDER_H_
 #define QCEFAPPRENDER_H_
 
-#include "QCefApp.h"
+#include "q_cef_app.h"
 #include "include/wrapper/cef_message_router.h"
 
 class QCefAppRender : public QCefApp, public CefRenderProcessHandler 

@@ -1,18 +1,15 @@
-#ifndef QCEF_GLOBAL_DEFINE_H
-#define QCEF_GLOBAL_DEFINE_H
+// 实现文件，解决多重定义问题
 
-#include "include/cef_browser.h"
-#include "include/cef_frame.h"
-#include "include/cef_process_message.h"
-
+#include "q_cef_global_define.h"
 #include <QMetaType>
+#include "include/cef_command_line.h"
+#include "include/cef_sandbox_win.h"
+#include "include/cef_app.h"
+#include "q_cef_app.h"
+#include "q_cef_app_browser.h"
+#include "q_cef_app_render.h"
 
-Q_DECLARE_METATYPE(CefRefPtr<CefBrowser>)
-Q_DECLARE_METATYPE(CefRefPtr<CefFrame>)
-Q_DECLARE_METATYPE(CefProcessId)
-Q_DECLARE_METATYPE(CefRefPtr<CefProcessMessage>)
-
-static void RegisterCefMetaType()
+void registerCefMetaType()
 {
     qRegisterMetaType<CefRefPtr<CefBrowser>>("CefRefPtr<CefBrowser>");
     qRegisterMetaType<CefRefPtr<CefFrame>>("CefRefPtr<CefFrame>");
@@ -20,21 +17,11 @@ static void RegisterCefMetaType()
     qRegisterMetaType<CefRefPtr<CefProcessMessage>>("CefRefPtr<CefProcessMessage>");
 }
 
-const char *const RENDER_TO_BROWSER_PROCESS_MESSAGE = "RenderToBrowserProcessMessage";
-const char *const BROWSER_TO_RENDER_PROCESS_MESSAGE = "BrowserToRenderProcessMessage";
-
-#include "QCefApp.h"
-#include "QCefAppBrowser.h"
-#include "QCefAppRender.h"
-#include "include/cef_command_line.h"
-#include "include/cef_sandbox_win.h"
-#include "include/cef_app.h"
-
-inline int InitializeCef()
+int initializeCef()
 {
-    CefMainArgs main_args(GetModuleHandle(nullptr));
     CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
     command_line->InitFromString(::GetCommandLineW());
+
     CefRefPtr<CefApp> app;
     switch (QCefApp::GetProcessType(command_line))
     {
@@ -47,24 +34,29 @@ inline int InitializeCef()
     default:
         break;
     }
+
+    CefMainArgs main_args(GetModuleHandle(nullptr));
+
     int exit_code = CefExecuteProcess(main_args, app, nullptr);
     if (exit_code >= 0)
     {
         return exit_code;
     }
+
     CefSettings settings;
     settings.multi_threaded_message_loop = true;
+
     if (!CefInitialize(main_args, settings, app.get(), nullptr))
     {
         return CefGetExitCode();
     }
-    RegisterCefMetaType();
+
+    registerCefMetaType();
+
     return -1;
 }
 
-inline void UninitializeCef()
+void uninitializeCef()
 {
     CefShutdown();
 }
-
-#endif // QCEF_GLOBAL_DEFINE_H

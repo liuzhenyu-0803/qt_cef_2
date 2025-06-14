@@ -1,7 +1,7 @@
 #ifndef QCEFAPPBROWSER_H
 #define QCEFAPPBROWSER_H
 
-#include "QCefApp.h"
+#include "q_cef_app.h"
 #include <QObject>
 
 class QCefAppBrowser : 

@@ -10,18 +10,18 @@ class App : public QApplication
     Q_OBJECT
 
 signals:
-    void SignalBeforeQuit();
+    void signal_before_quit();
 
 public:
     App(int &argc, char **argv);
     ~App();
 
-    static App *GetInstance()
+    static App *getInstance()
     {
         return qobject_cast<App *>(qApp);
     }
 
-    void Quit();
+    void quit();
 
 protected:
     

@@ -18,19 +18,21 @@ set(PROJECT_SOURCES
     src/app.h
     src/main_window.cpp
     src/main_window.h
-    src/cef/QCefApp.cpp
-    src/cef/QCefApp.h
-    src/cef/QCefAppBrowser.cpp
-    src/cef/QCefAppBrowser.h
-    src/cef/QCefAppRender.cpp
-    src/cef/QCefAppRender.h
-    src/cef/QCefClient.cpp
-    src/cef/QCefClient.h
-    src/cef/QCefGlobalDefine.h
+    src/main_window.ui
+    src/cef/q_cef_app.cpp
+    src/cef/q_cef_app.h
+    src/cef/q_cef_app_browser.cpp
+    src/cef/q_cef_app_browser.h
+    src/cef/q_cef_app_render.cpp
+    src/cef/q_cef_app_render.h
+    src/cef/q_cef_client.cpp
+    src/cef/q_cef_client.h
+    src/cef/q_cef_global_define.h
+    src/cef/q_cef_global_define.cpp
     src/cef/cef_query_handler.cpp
     src/cef/cef_query_handler.h
-    src/cef/QCefWidget.cpp
-    src/cef/QCefWidget.h
+    src/cef/q_cef_widget.cpp
+    src/cef/q_cef_widget.h
     src/log/log.cpp
     src/log/log.h
 )

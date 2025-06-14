@@ -23,7 +23,7 @@ protected:
 private:
     Ui::MainWindowClass ui_;
 
-    QCefWidget *cef_view_widget_;
+    QCefWidget *cef_widget_;
 };
 
 

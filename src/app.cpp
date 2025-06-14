@@ -10,9 +10,9 @@ App::~App()
 {
 }
 
-void App::Quit()
+void App::quit()
 {
-    emit SignalBeforeQuit();
+    emit signal_before_quit();
 
-    quit();
+    QApplication::quit();
 }
