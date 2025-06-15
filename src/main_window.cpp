@@ -1,7 +1,6 @@
 #include "main_window.h"
 
 #include "cef/q_cef_widget.h"
-#include "app.h"
 
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -36,11 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow()
-{}
-
-void MainWindow::closeEvent(QCloseEvent * event)
 {
-    QWidget::closeEvent(event);
 
-    qobject_cast<App *>(qApp)->quit();
 }

@@ -46,23 +46,23 @@ QCefAppRender::QCefAppRender()
 void QCefAppRender::OnWebKitInitialized()
 {
     log("RenderApp::OnWebKitInitialized");
-    std::string extensionCode =
-        "var callNativeBridge;"
-        "if (!callNativeBridge)"
-        "   callNativeBridge = {};"
-        "(function() {"
-        "   callNativeBridge.callNativeFunction = function(text) {"
-        "       native function callNativeFunction();"
-        "       return callNativeFunction(text);"
-        "   };"
-        "})();";
-    handler = new V8HandlerImpl();
-    CefRegisterExtension("v8/myextension", extensionCode, handler);
+    // std::string extensionCode =
+    //     "var callNativeBridge;"
+    //     "if (!callNativeBridge)"
+    //     "   callNativeBridge = {};"
+    //     "(function() {"
+    //     "   callNativeBridge.callNativeFunction = function(text) {"
+    //     "       native function callNativeFunction();"
+    //     "       return callNativeFunction(text);"
+    //     "   };"
+    //     "})();";
+    // handler = new V8HandlerImpl();
+    // CefRegisterExtension("v8/myextension", extensionCode, handler);
     return;
-    if (m_message_router == NULL) {
-        CefMessageRouterConfig config;
-        m_message_router = CefMessageRouterRendererSide::Create(config);
-    }
+    // if (m_message_router == NULL) {
+    //     CefMessageRouterConfig config;
+    //     m_message_router = CefMessageRouterRendererSide::Create(config);
+    // }
 }
 
 void QCefAppRender::OnBrowserCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDictionaryValue> extra_info)
@@ -73,18 +73,18 @@ void QCefAppRender::OnBrowserCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<Ce
 void QCefAppRender::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context)
 {
     log("RenderApp::OnContextCreated");
-    browser_ = browser;
-    handler->SetBrowser(browser_);
+    // browser_ = browser;
+    // handler->SetBrowser(browser_);
     return;
 }
 
 void QCefAppRender::OnContextReleased(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context)
 {
-    m_message_router->OnContextReleased(browser, frame, context);
+    // m_message_router->OnContextReleased(browser, frame, context);
 }
 
 bool QCefAppRender::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefProcessId source_process, CefRefPtr<CefProcessMessage> process_message)
 {
-    log("RenderApp::OnProcessMessageReceived: " + process_message->GetName().ToString() + " " + process_message->GetArgumentList()->GetString(0).ToString());
+    // log("RenderApp::OnProcessMessageReceived: " + process_message->GetName().ToString() + " " + process_message->GetArgumentList()->GetString(0).ToString());
     return true;
 }

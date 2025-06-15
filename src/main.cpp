@@ -1,4 +1,3 @@
-#include "app.h"
 #include "main_window.h"
 
 #include "cef/q_cef_global_define.h"
@@ -14,13 +13,15 @@ int main(int argc, char* argv[])
         return exitCode;
     }
 
-    QApplication::setQuitOnLastWindowClosed(false);
-
-    App a(argc, argv);
-    MainWindow w;
-    w.resize(1600, 1200);
-    w.show();
+    QApplication a(argc, argv);
+    
+    auto w = new MainWindow();
+    w->resize(1600, 1200);
+    w->show();
+    
     a.exec();
+
+    delete w;
 
     uninitializeCef();
 

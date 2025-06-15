@@ -14,8 +14,6 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets)
 # 源码文件（src 目录下）
 set(PROJECT_SOURCES
     src/main.cpp
-    src/app.cpp
-    src/app.h
     src/main_window.cpp
     src/main_window.h
     src/main_window.ui
